@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Cheatsheet</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0.4in;
+        }
+
+        @media print {
+            body {
+                font-size: 7px !important;
+                line-height: 1.0 !important;
+                color: #000 !important;
+            }
+            .container {
+                max-height: calc(2 * 297mm - 80mm) !important;
+                overflow: hidden !important;
+                page-break-after: auto;
+            }
+            .section {
+                margin-bottom: 4px !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            h1 {
+                font-size: 14px !important;
+                margin: 0 0 6px 0 !important;
+                background: #000 !important;
+                color: white !important;
+                border: 2px solid #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            h2 {
+                font-size: 9px !important;
+                margin: 0 0 3px 0 !important;
+                background: #000 !important;
+                color: white !important;
+                border: 1px solid #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            h3 {
+                font-size: 8px !important;
+                margin: 3px 0 2px 0 !important;
+                background: #666 !important;
+                color: white !important;
+                border: 1px solid #666 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .code-block {
+                font-size: 6px !important;
+                padding: 2px !important;
+                margin: 1px 0 !important;
+                background: white !important;
+                border: 1px solid #000 !important;
+                border-left: 3px solid #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            code {
+                background: #f5f5f5 !important;
+                border: 1px solid #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            font-size: 8px;
+            line-height: 1.1;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            max-height: calc(2 * 11in - 1in);
+            overflow: hidden;
+        }
+
+        .section {
+            break-inside: avoid;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            font-size: 18px;
+            text-align: center;
+            margin: 0 0 10px 0;
+            background: #000;
+            color: white;
+            padding: 5px;
+            grid-column: 1 / -1;
+            border: 2px solid #000;
+        }
+
+        h2 {
+            font-size: 11px;
+            background: #000;
+            color: white;
+            padding: 2px 5px;
+            margin: 0 0 5px 0;
+            border: 1px solid #000;
+        }
+
+        h3 {
+            font-size: 10px;
+            background: #666;
+            color: white;
+            padding: 1px 3px;
+            margin: 5px 0 3px 0;
+            border: 1px solid #666;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 1px 2px;
+            border: 1px solid #ccc;
+        }
+
+        .code-block {
+            background: #f9f9f9;
+            padding: 3px;
+            margin: 2px 0;
+            border: 1px solid #000;
+            border-left: 3px solid #000;
+            font-family: 'Courier New', monospace;
+            font-size: 8px;
+        }
+
+        ul, ol {
+            margin: 0;
+            padding-left: 15px;
+        }
+
+        li {
+            margin: 1px 0;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>C++ Cheatsheet</h1>
+
+        <div class="section">
+            <h2>Basic Syntax</h2>
+            <div class="code-block">
+// Comments
+// Single line comment
+/* Multi-line
+   comment */
+
+// Include libraries
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+// Namespace
+using namespace std;
+
+// Main function
+int main() {
+    cout &lt;&lt; "Hello World" &lt;&lt; endl;
+    return 0;
+}</div>
+        </div>
+
+        <div class="section">
+            <h2>Data Types</h2>
+            <div class="code-block">
+// Primitive types
+int num = 42;
+float f = 3.14f;
+double d = 3.14159;
+char c = 'A';
+bool flag = true;
+
+// Strings
+string str = "Hello";
+char cstr[] = "World";
+
+// Constants
+const int MAX = 100;
+#define PI 3.14159
+
+// Auto type inference (C++11)
+auto x = 42;        // int
+auto y = 3.14;      // double</div>
+        </div>
+
+        <div class="section">
+            <h2>Operators</h2>
+            <div class="two-col">
+                <div>
+                    <h3>Arithmetic</h3>
+                    <div class="code-block">
++ - * / %
+++ -- (prefix/postfix)
++= -= *= /= %=
+
+int x = 10;
+x++;    // x = 11
+++x;    // x = 12
+x += 5; // x = 17</div>
+                </div>
+                <div>
+                    <h3>Comparison & Logical</h3>
+                    <div class="code-block">
+// Comparison
+== != &lt; &gt; &lt;= &gt;=
+
+// Logical
+&& || !
+true && false  // false
+true || false  // true
+!true          // false
+
+// Bitwise
+& | ^ ~ &lt;&lt; &gt;&gt;</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Control Flow</h2>
+            <h3>Conditionals</h3>
+            <div class="code-block">
+// If statement
+if (condition) {
+    // code
+} else if (other) {
+    // code
+} else {
+    // code
+}
+
+// Ternary operator
+int result = (x > 0) ? 1 : -1;
+
+// Switch statement
+switch (value) {
+    case 1:
+        // code
+        break;
+    case 2:
+        // code
+        break;
+    default:
+        // code
+}</div>
+
+            <h3>Loops</h3>
+            <div class="code-block">
+// For loop
+for (int i = 0; i &lt; 10; i++) {
+    cout &lt;&lt; i &lt;&lt; " ";
+}
+
+// Range-based for (C++11)
+vector&lt;int&gt; v = {1, 2, 3};
+for (int x : v) {
+    cout &lt;&lt; x &lt;&lt; " ";
+}
+
+// While loop
+while (condition) {
+    // code
+    break;    // exit loop
+    continue; // next iteration
+}
+
+// Do-while loop
+do {
+    // code
+} while (condition);</div>
+        </div>
+
+        <div class="section">
+            <h2>Arrays & Containers</h2>
+            <h3>Arrays</h3>
+            <div class="code-block">
+// Static arrays
+int arr[5] = {1, 2, 3, 4, 5};
+int matrix[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}};
+
+// Access elements
+arr[0] = 10;  // first element
+arr[4] = 50;  // last element
+
+// Array size
+int size = sizeof(arr) / sizeof(arr[0]);</div>
+
+            <h3>STL Containers</h3>
+            <div class="code-block">
+#include &lt;vector&gt;
+#include &lt;map&gt;
+#include &lt;set&gt;
+
+// Vector (dynamic array)
+vector&lt;int&gt; v = {1, 2, 3};
+v.push_back(4);
+v.pop_back();
+v[0] = 10;
+v.size();
+
+// Map (key-value pairs)
+map&lt;string, int&gt; m;
+m["key"] = 42;
+m.insert({"hello", 1});
+
+// Set (unique elements)
+set&lt;int&gt; s = {3, 1, 2};
+s.insert(4);
+s.erase(1);</div>
+        </div>
+
+        <div class="section">
+            <h2>Functions</h2>
+            <div class="code-block">
+// Function declaration
+int add(int a, int b);
+
+// Function definition
+int add(int a, int b) {
+    return a + b;
+}
+
+// Function with default parameters
+void greet(string name = "World") {
+    cout &lt;&lt; "Hello " &lt;&lt; name &lt;&lt; endl;
+}
+
+// Function overloading
+int multiply(int a, int b) { return a * b; }
+double multiply(double a, double b) { return a * b; }
+
+// Pass by reference
+void swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+// Lambda functions (C++11)
+auto lambda = [](int x) { return x * 2; };
+int result = lambda(5);  // result = 10</div>
+        </div>
+
+        <div class="section">
+            <h2>Pointers & References</h2>
+            <div class="code-block">
+// Pointers
+int x = 42;
+int* ptr = &x;      // pointer to x
+int value = *ptr;   // dereference pointer
+
+// Null pointer
+int* nullPtr = nullptr;  // C++11
+int* oldNull = NULL;     // older style
+
+// References
+int& ref = x;       // reference to x
+ref = 100;          // x is now 100
+
+// Pointer arithmetic
+int arr[] = {1, 2, 3};
+int* p = arr;
+p++;                // points to arr[1]
+*(p + 1);          // value of arr[2]
+
+// Dynamic memory
+int* dynamic = new int(42);
+delete dynamic;
+
+int* array = new int[10];
+delete[] array;</div>
+        </div>
+
+        <div class="section">
+            <h2>Classes & Objects</h2>
+            <div class="code-block">
+class Rectangle {
+private:
+    double width, height;
+
+public:
+    // Constructor
+    Rectangle(double w, double h) : width(w), height(h) {}
+
+    // Default constructor
+    Rectangle() : width(0), height(0) {}
+
+    // Destructor
+    ~Rectangle() { /* cleanup code */ }
+
+    // Member functions
+    double area() const {
+        return width * height;
+    }
+
+    void setWidth(double w) { width = w; }
+    double getWidth() const { return width; }
+
+    // Static member
+    static int count;
+    static void printCount() {
+        cout &lt;&lt; count &lt;&lt; endl;
+    }
+};
+
+// Usage
+Rectangle r(5.0, 3.0);
+cout &lt;&lt; r.area() &lt;&lt; endl;</div>
+        </div>
+
+        <div class="section">
+            <h2>Inheritance & Polymorphism</h2>
+            <div class="code-block">
+// Base class
+class Animal {
+protected:
+    string name;
+public:
+    Animal(string n) : name(n) {}
+    virtual void makeSound() = 0;  // pure virtual
+    virtual ~Animal() {}           // virtual destructor
+};
+
+// Derived class
+class Dog : public Animal {
+public:
+    Dog(string n) : Animal(n) {}
+    void makeSound() override {
+        cout &lt;&lt; name &lt;&lt; " barks!" &lt;&lt; endl;
+    }
+};
+
+// Multiple inheritance
+class Pet {
+public:
+    virtual void play() = 0;
+};
+
+class Puppy : public Dog, public Pet {
+public:
+    Puppy(string n) : Dog(n) {}
+    void play() override {
+        cout &lt;&lt; "Playing fetch!" &lt;&lt; endl;
+    }
+};</div>
+        </div>
+
+        <div class="section">
+            <h2>Memory Management</h2>
+            <div class="code-block">
+// Smart pointers (C++11)
+#include &lt;memory&gt;
+
+// Unique pointer
+unique_ptr&lt;int&gt; uptr = make_unique&lt;int&gt;(42);
+int value = *uptr;
+
+// Shared pointer
+shared_ptr&lt;int&gt; sptr1 = make_shared&lt;int&gt;(42);
+shared_ptr&lt;int&gt; sptr2 = sptr1;  // shared ownership
+cout &lt;&lt; sptr1.use_count() &lt;&lt; endl;  // 2
+
+// Weak pointer
+weak_ptr&lt;int&gt; wptr = sptr1;
+
+// RAII (Resource Acquisition Is Initialization)
+class FileHandler {
+    FILE* file;
+public:
+    FileHandler(const char* name) {
+        file = fopen(name, "r");
+    }
+    ~FileHandler() {
+        if (file) fclose(file);
+    }
+};</div>
+        </div>
+
+        <div class="section">
+            <h2>Templates</h2>
+            <div class="code-block">
+// Function template
+template&lt;typename T&gt;
+T maximum(T a, T b) {
+    return (a > b) ? a : b;
+}
+
+// Usage
+int maxInt = maximum(5, 10);
+double maxDouble = maximum(3.14, 2.71);
+
+// Class template
+template&lt;typename T&gt;
+class Stack {
+private:
+    vector&lt;T&gt; elements;
+public:
+    void push(const T& item) {
+        elements.push_back(item);
+    }
+    T pop() {
+        T top = elements.back();
+        elements.pop_back();
+        return top;
+    }
+};
+
+// Template specialization
+template&lt;&gt;
+class Stack&lt;bool&gt; {
+    // specialized implementation
+};</div>
+        </div>
+
+        <div class="section">
+            <h2>STL Algorithms</h2>
+            <div class="code-block">
+#include &lt;algorithm&gt;
+
+vector&lt;int&gt; v = {3, 1, 4, 1, 5};
+
+// Sorting
+sort(v.begin(), v.end());
+sort(v.rbegin(), v.rend());  // reverse sort
+
+// Searching
+auto it = find(v.begin(), v.end(), 4);
+bool found = (it != v.end());
+
+// Binary search (sorted container)
+bool exists = binary_search(v.begin(), v.end(), 3);
+
+// Min/Max
+auto minIt = min_element(v.begin(), v.end());
+auto maxIt = max_element(v.begin(), v.end());
+
+// Count
+int count = count_if(v.begin(), v.end(),
+                    [](int x) { return x > 2; });
+
+// Transform
+transform(v.begin(), v.end(), v.begin(),
+         [](int x) { return x * 2; });</div>
+        </div>
+
+        <div class="section">
+            <h2>Exception Handling</h2>
+            <div class="code-block">
+// Try-catch block
+try {
+    int result = 10 / 0;  // may throw
+    throw runtime_error("Custom error");
+} catch (const runtime_error& e) {
+    cout &lt;&lt; "Runtime error: " &lt;&lt; e.what() &lt;&lt; endl;
+} catch (const exception& e) {
+    cout &lt;&lt; "General error: " &lt;&lt; e.what() &lt;&lt; endl;
+} catch (...) {
+    cout &lt;&lt; "Unknown error" &lt;&lt; endl;
+}
+
+// Custom exception
+class MyException : public exception {
+public:
+    const char* what() const noexcept override {
+        return "My custom exception";
+    }
+};
+
+// RAII with exceptions
+class Resource {
+public:
+    Resource() { /* acquire resource */ }
+    ~Resource() { /* release resource */ }
+};</div>
+        </div>
+
+        <div class="section">
+            <h2>File I/O</h2>
+            <div class="code-block">
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+
+// File output
+ofstream outFile("output.txt");
+outFile &lt;&lt; "Hello World" &lt;&lt; endl;
+outFile.close();
+
+// File input
+ifstream inFile("input.txt");
+string line;
+while (getline(inFile, line)) {
+    cout &lt;&lt; line &lt;&lt; endl;
+}
+inFile.close();
+
+// String stream
+stringstream ss;
+ss &lt;&lt; "Number: " &lt;&lt; 42;
+string result = ss.str();
+
+// Binary files
+ofstream binFile("data.bin", ios::binary);
+int data = 42;
+binFile.write(reinterpret_cast&lt;char*&gt;(&data), sizeof(data));
+binFile.close();</div>
+        </div>
+
+        <div class="section">
+            <h2>Modern C++ Features</h2>
+            <div class="code-block">
+// C++11 and later
+#include &lt;initializer_list&gt;
+#include &lt;tuple&gt;
+
+// Auto keyword
+auto x = 42;           // int
+auto y = 3.14;         // double
+auto z = "hello";      // const char*
+
+// Range-based for
+vector&lt;int&gt; v = {1, 2, 3};
+for (const auto& item : v) {
+    cout &lt;&lt; item &lt;&lt; " ";
+}
+
+// Uniform initialization
+vector&lt;int&gt; vec{1, 2, 3, 4};
+map&lt;string, int&gt; m{{"a", 1}, {"b", 2}};
+
+// Tuple (C++11)
+tuple&lt;int, string, double&gt; t(1, "hello", 3.14);
+int first = get&lt;0&gt;(t);
+
+// Structured bindings (C++17)
+auto [x, y, z] = t;
+
+// nullptr
+int* ptr = nullptr;</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -7,13 +7,74 @@
     <style>
         @page {
             size: A4;
-            margin: 0.5in;
+            margin: 0.4in;
+        }
+
+        @media print {
+            body {
+                font-size: 7px !important;
+                line-height: 1.0 !important;
+                color: #000 !important;
+            }
+            .container {
+                max-height: calc(2 * 297mm - 80mm) !important;
+                overflow: hidden !important;
+                page-break-after: auto;
+            }
+            .section {
+                margin-bottom: 4px !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            h1 {
+                font-size: 14px !important;
+                margin: 0 0 6px 0 !important;
+                background: #000 !important;
+                color: white !important;
+                border: 2px solid #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            h2 {
+                font-size: 9px !important;
+                margin: 0 0 3px 0 !important;
+                background: #000 !important;
+                color: white !important;
+                border: 1px solid #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            h3 {
+                font-size: 8px !important;
+                margin: 3px 0 2px 0 !important;
+                background: #666 !important;
+                color: white !important;
+                border: 1px solid #666 !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            .code-block {
+                font-size: 6px !important;
+                padding: 2px !important;
+                margin: 1px 0 !important;
+                background: white !important;
+                border: 1px solid #000 !important;
+                border-left: 3px solid #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            code {
+                background: #f5f5f5 !important;
+                border: 1px solid #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
         }
 
         body {
             font-family: 'Courier New', monospace;
-            font-size: 9px;
-            line-height: 1.2;
+            font-size: 8px;
+            line-height: 1.1;
             margin: 0;
             padding: 0;
             color: #333;
@@ -22,52 +83,57 @@
         .container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            height: 100vh;
+            gap: 10px;
+            max-height: calc(2 * 11in - 1in);
+            overflow: hidden;
         }
 
         .section {
             break-inside: avoid;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         h1 {
             font-size: 18px;
             text-align: center;
             margin: 0 0 10px 0;
-            background: #2c3e50;
+            background: #000;
             color: white;
             padding: 5px;
             grid-column: 1 / -1;
+            border: 2px solid #000;
         }
 
         h2 {
             font-size: 11px;
-            background: #34495e;
+            background: #000;
             color: white;
             padding: 2px 5px;
             margin: 0 0 5px 0;
+            border: 1px solid #000;
         }
 
         h3 {
             font-size: 10px;
-            background: #95a5a6;
+            background: #666;
             color: white;
             padding: 1px 3px;
             margin: 5px 0 3px 0;
+            border: 1px solid #666;
         }
 
         code {
-            background: #ecf0f1;
+            background: #f5f5f5;
             padding: 1px 2px;
-            border-radius: 2px;
+            border: 1px solid #ccc;
         }
 
         .code-block {
-            background: #ecf0f1;
+            background: #f9f9f9;
             padding: 3px;
             margin: 2px 0;
-            border-left: 3px solid #3498db;
+            border: 1px solid #000;
+            border-left: 3px solid #000;
             font-family: 'Courier New', monospace;
             font-size: 8px;
         }
@@ -258,24 +324,95 @@ add = lambda x, y: x + y</div>
         </div>
 
         <div class="section">
-            <h2>String Operations</h2>
+            <h2>String Methods</h2>
+            <div class="two-col">
+                <div>
+                    <h3>Case & Formatting</h3>
+                    <div class="code-block">
+s.upper()          # HELLO WORLD
+s.lower()          # hello world
+s.title()          # Hello World
+s.capitalize()     # Hello world
+s.swapcase()       # hELLO wORLD
+s.casefold()       # aggressive lower()
+
+# Alignment & Padding
+s.center(20)       # pad center
+s.ljust(20)        # pad right
+s.rjust(20)        # pad left
+s.zfill(10)        # zero pad left
+s.expandtabs(4)    # expand tabs</div>
+                </div>
+                <div>
+                    <h3>Search & Check</h3>
+                    <div class="code-block">
+s.find('World')    # index or -1
+s.rfind('o')       # last occurrence
+s.index('World')   # index or error
+s.rindex('o')      # last index
+s.count('l')       # count occurrences
+
+# Boolean checks
+s.startswith('He') # True/False
+s.endswith('ld')   # True/False
+s.isalpha()        # letters only
+s.isdigit()        # digits only
+s.isalnum()        # letters & digits
+s.islower()        # all lowercase
+s.isupper()        # all uppercase
+s.istitle()        # title case
+s.isspace()        # whitespace only
+s.isdecimal()      # decimal chars
+s.isnumeric()      # numeric chars
+s.isidentifier()   # valid identifier
+s.isprintable()    # printable chars
+s.isascii()        # ASCII chars</div>
+                </div>
+            </div>
+
+            <h3>Transform & Split</h3>
             <div class="code-block">
-s = "Hello World"
+# Modify
+s.replace('old', 'new', count)  # replace occurrences
+s.translate(translation_table)   # character mapping
 
-# Methods
-s.upper()           # HELLO WORLD
-s.lower()           # hello world
-s.strip()           # remove whitespace
-s.replace('o', '0') # Hell0 W0rld
-s.split(' ')        # ['Hello', 'World']
-s.startswith('H')   # True
-s.endswith('d')     # True
-s.find('World')     # 6
+# Clean
+s.strip()          # remove whitespace
+s.lstrip()         # remove left whitespace
+s.rstrip()         # remove right whitespace
+s.strip('chars')   # remove specific chars
 
-# Formatting
+# Split & Join
+s.split()          # split on whitespace
+s.split('delim')   # split on delimiter
+s.rsplit('delim')  # split from right
+s.splitlines()     # split on line breaks
+s.partition('sep') # split into 3 parts
+s.rpartition('sep')# split from right
+'sep'.join(list)   # join list with separator
+
+# Encoding
+s.encode('utf-8')  # to bytes
+bytes.decode('utf-8') # from bytes</div>
+
+            <h3>String Formatting</h3>
+            <div class="code-block">
+# f-strings (3.6+)
 f"Hello {name}"
+f"{value:.2f}"     # 2 decimal places
+f"{value:>10}"     # right align in 10 chars
+f"{value:0>5}"     # zero pad to 5 chars
+
+# .format() method
 "Hello {}".format(name)
-"Hello {name}".format(name=name)</div>
+"Hello {name}".format(name=name)
+"{:>10}".format(value)
+"{:.2f}".format(3.14159)
+
+# % formatting (old style)
+"Hello %s" % name
+"Value: %d" % 42
+"Pi: %.2f" % 3.14159</div>
         </div>
 
         <div class="section">
@@ -298,8 +435,11 @@ s = {x**2 for x in range(5)}</div>
         </div>
 
         <div class="section">
-            <h2>File I/O</h2>
-            <div class="code-block">
+            <h2>File I/O & System</h2>
+            <div class="two-col">
+                <div>
+                    <h3>File Operations</h3>
+                    <div class="code-block">
 # Read file
 with open('file.txt', 'r') as f:
     content = f.read()
@@ -312,7 +452,66 @@ with open('file.txt', 'w') as f:
 
 # Append
 with open('file.txt', 'a') as f:
-    f.write('more content')</div>
+    f.write('more content')
+
+# Binary files
+with open('file.bin', 'rb') as f:
+    data = f.read()
+with open('file.bin', 'wb') as f:
+    f.write(b'binary data')</div>
+                </div>
+                <div>
+                    <h3>File System Mutations</h3>
+                    <div class="code-block">
+import os
+import shutil
+
+# File operations
+os.rename('old.txt', 'new.txt')
+os.remove('file.txt')
+os.unlink('file.txt')  # same as remove
+
+# Directory operations
+os.mkdir('new_dir')
+os.makedirs('path/to/dir')  # recursive
+os.rmdir('empty_dir')
+shutil.rmtree('dir_with_files')  # recursive delete
+
+# Copy operations
+shutil.copy('src.txt', 'dst.txt')
+shutil.copy2('src.txt', 'dst.txt')  # preserve metadata
+shutil.copytree('src_dir', 'dst_dir')  # recursive copy
+
+# Move operations
+shutil.move('src', 'dst')
+
+# Path checks
+os.path.exists('path')
+os.path.isfile('path')
+os.path.isdir('path')</div>
+                </div>
+            </div>
+
+            <h3>Modern Path Operations (pathlib)</h3>
+            <div class="code-block">
+from pathlib import Path
+
+p = Path('file.txt')
+p.exists()          # check if exists
+p.is_file()         # check if file
+p.is_dir()          # check if directory
+p.mkdir()           # create directory
+p.mkdir(parents=True)  # create with parents
+p.rmdir()           # remove empty directory
+p.unlink()          # delete file
+p.rename('new.txt') # rename file
+
+# Path manipulation
+p.parent            # parent directory
+p.name             # filename
+p.stem             # filename without extension
+p.suffix           # file extension
+p / 'subdir'       # join paths</div>
         </div>
 
         <div class="section">
@@ -436,6 +635,79 @@ if (n := len(data)) > 10:
 from pathlib import Path
 p = Path('file.txt')
 p.exists(), p.is_file(), p.suffix</div>
+        </div>
+
+        <div class="section">
+            <h2>Network & Sockets</h2>
+            <div class="two-col">
+                <div>
+                    <h3>HTTP Requests</h3>
+                    <div class="code-block">
+import requests
+
+# GET request
+r = requests.get('https://api.example.com')
+r.status_code  # 200
+r.text         # response body
+r.json()       # parse JSON
+
+# POST request
+data = {'key': 'value'}
+r = requests.post('url', json=data)
+r = requests.post('url', data=data)
+
+# Headers & params
+headers = {'Authorization': 'Bearer token'}
+params = {'page': 1, 'limit': 10}
+r = requests.get('url', headers=headers, params=params)</div>
+                </div>
+                <div>
+                    <h3>Socket Programming</h3>
+                    <div class="code-block">
+import socket
+
+# TCP Client
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(('localhost', 8080))
+sock.send(b'Hello')
+data = sock.recv(1024)
+sock.close()
+
+# TCP Server
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(('localhost', 8080))
+server.listen(5)
+conn, addr = server.accept()
+data = conn.recv(1024)
+conn.send(b'Response')
+conn.close()
+
+# UDP Socket
+udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+udp.sendto(b'data', ('host', port))
+data, addr = udp.recvfrom(1024)</div>
+                </div>
+            </div>
+
+            <h3>URL & Web Utils</h3>
+            <div class="code-block">
+from urllib.parse import urljoin, urlparse, quote, unquote
+from urllib.request import urlopen
+
+# URL parsing
+parsed = urlparse('https://example.com/path?query=1')
+parsed.scheme, parsed.netloc, parsed.path
+
+# URL joining
+urljoin('https://example.com/', 'path/file')  # https://example.com/path/file
+
+# URL encoding
+quote('hello world')    # 'hello%20world'
+unquote('hello%20world') # 'hello world'
+
+# Simple HTTP client (built-in)
+with urlopen('https://example.com') as response:
+    html = response.read().decode('utf-8')</div>
         </div>
 
         <div class="section">

@@ -627,6 +627,89 @@ binFile.close();</div>
         </div>
 
         <div class="section">
+            <h2>Network Programming</h2>
+            <div class="two-col">
+                <div>
+                    <h3>Socket Basics (Unix/Linux)</h3>
+                    <div class="code-block">
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;unistd.h&gt;
+
+// TCP Server
+int server_fd = socket(AF_INET, SOCK_STREAM, 0);
+struct sockaddr_in address;
+address.sin_family = AF_INET;
+address.sin_addr.s_addr = INADDR_ANY;
+address.sin_port = htons(8080);
+
+bind(server_fd, (struct sockaddr*)&address, sizeof(address));
+listen(server_fd, 3);
+
+int client_socket = accept(server_fd, NULL, NULL);
+char buffer[1024];
+recv(client_socket, buffer, sizeof(buffer), 0);
+send(client_socket, "HTTP/1.1 200 OK\r\n\r\nHello", 25, 0);
+close(client_socket);
+close(server_fd);</div>
+                </div>
+                <div>
+                    <h3>TCP Client</h3>
+                    <div class="code-block">
+// TCP Client
+int sock = socket(AF_INET, SOCK_STREAM, 0);
+struct sockaddr_in serv_addr;
+serv_addr.sin_family = AF_INET;
+serv_addr.sin_port = htons(8080);
+inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
+
+connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+send(sock, "Hello Server", 12, 0);
+
+char buffer[1024];
+recv(sock, buffer, sizeof(buffer), 0);
+close(sock);
+
+// UDP Socket
+int udp_sock = socket(AF_INET, SOCK_DGRAM, 0);
+sendto(udp_sock, "data", 4, 0,
+       (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+recvfrom(udp_sock, buffer, sizeof(buffer), 0, NULL, NULL);
+close(udp_sock);</div>
+                </div>
+            </div>
+
+            <h3>HTTP Client (using libraries)</h3>
+            <div class="code-block">
+// Using libcurl
+#include &lt;curl/curl.h&gt;
+
+CURL *curl = curl_easy_init();
+if(curl) {
+    curl_easy_setopt(curl, CURLOPT_URL, "https://api.example.com");
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+
+    CURLcode res = curl_easy_perform(curl);
+    curl_easy_cleanup(curl);
+}
+
+// Simple HTTP request class
+class HttpClient {
+public:
+    static string GET(const string& url) {
+        // Implementation using socket or library
+        return response;
+    }
+
+    static string POST(const string& url, const string& data) {
+        // Implementation for POST request
+        return response;
+    }
+};</div>
+        </div>
+
+        <div class="section">
             <h2>Modern C++ Features</h2>
             <div class="code-block">
 // C++11 and later
